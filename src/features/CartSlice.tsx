@@ -1,26 +1,84 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Product } from "../types/interfaces";
-
+import { cartProduct } from "../types/interfaces";
 
 interface ICart {
-    cart:Product[]
+  cart: cartProduct[];
+  totalAmount: number;
 }
 
-
-const initialState:ICart = {
-    cart:[]
-}
-
+const initialState: ICart = {
+  cart: [],
+  totalAmount: 0,
+};
 
 const cartSlice = createSlice({
-    name:"CartSlice",  
-    initialState,
-    reducers:{
-      addToCart:(state,action)=>{
-           state.cart.push(action.payload);
-      }
-    }
-})
+  name: "CartSlice",
+  initialState,
+  reducers: {
+    addToCart: (state, action) => {
+      const productToAdd = action.payload;
+      const existingProduct = state.cart.find(
+        (product) => product.id === productToAdd.id
+      );
 
-export const {addToCart} = cartSlice.actions; 
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        state.cart.push({ ...productToAdd, quantity: 1 });
+      }
+
+      state.totalAmount = state.cart.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    },
+
+    IncreaseQty: (state, action) => {
+      const product = state.cart.find(
+        (product) => product.id === action.payload.id
+      );
+
+      if (product && product.quantity < product.stock) {
+        product.quantity += 1;
+      }
+
+      state.totalAmount = state.cart.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    },
+
+    DecreaseQty: (state, action) => {
+      const product = state.cart.find(
+        (product) => product.id === action.payload.id
+      );
+
+      if (product && product.quantity > 1) {
+        product.quantity -= 1;
+      }
+
+      state.totalAmount = state.cart.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    },
+
+    deleteCart: (state, action) => {
+      const productIdToDelete = action.payload;
+      state.cart = state.cart.filter((item) => item.id !== productIdToDelete);
+
+      state.totalAmount = state.cart.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    },
+    clearCart: (state) => {
+      state.cart = [];
+      state.totalAmount = 0;
+    },
+  },
+});
+
+export const { addToCart, IncreaseQty, DecreaseQty, deleteCart ,clearCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

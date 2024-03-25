@@ -6,23 +6,6 @@ import { Box, Flex, Text, Image, VStack } from "@chakra-ui/react";
 import Stars from "./Stars";
 import AddCartBtn from "./Buttons/AddCartBtn";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const ProductDetails = () => {
   const { products } = useSelector((state: RootState) => state.ProductSlice2);
   const { id } = useParams();
@@ -64,7 +47,7 @@ const ProductDetails = () => {
           <Text fontWeight={400}>Rating : {product?.rating.rate}</Text>
           <Stars rating={Number(product?.rating?.rate)}></Stars>
           <Text pl={1}>Reviews : {product?.rating?.count}</Text>
-          <AddCartBtn product={product!}/>
+          <AddCartBtn product={product!} />
         </VStack>
       </Flex>
 

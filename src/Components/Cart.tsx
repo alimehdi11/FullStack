@@ -16,12 +16,31 @@ import {
   Heading,
   VStack,
   Divider,
+  Flex,
 } from "@chakra-ui/react";
 import { AiFillDelete } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import { NavLink } from "react-router-dom";
+import {
+  DecreaseQty,
+  IncreaseQty,
+  clearCart,
+  deleteCart,
+} from "../features/CartSlice";
 const Cart: React.FC = () => {
-  const { cart } = useSelector((state: RootState) => state.CartSlice);
+  const dispatch = useDispatch();
+  const { cart, totalAmount } = useSelector(
+    (state: RootState) => state.CartSlice
+  );
+
+  if (cart.length == 0) {
+    return (
+      <Flex minH={"90vh"} justify={"center"} alignItems={"center"}>
+        <Heading>Cart Is Empty</Heading>
+      </Flex>
+    );
+  }
   return (
     <Box w={"100%"} maxW={"1200px"} mx={"auto"} mt={5} px={5}>
       <Heading>Cart Items</Heading>
@@ -44,23 +63,32 @@ const Cart: React.FC = () => {
                 <Td textAlign={"center"}>{++i}</Td>
                 <Td display={"flex"} gap={5} alignItems={"center"}>
                   <Image src={item.image} w={10} alt="" />
-                  <Text>{item.title.split(" ").slice(0, 4).join(" ")}</Text>
+                  <Text>{item.title.split(" ").slice(0, 2).join(" ")}</Text>
                 </Td>
                 <Td textAlign={"center"}>{item.price}$</Td>
                 <Td>
                   <HStack justify={"center"}>
-                    <Button size={"sm"}>
+                    <Button
+                      size={"sm"}
+                      onClick={() => dispatch(DecreaseQty(item))}
+                    >
                       <GrPrevious />
                     </Button>
-                    <Text>1</Text>
-                    <Button size={"sm"}>
+                    <Text>{item.quantity}</Text>
+                    <Button
+                      size={"sm"}
+                      onClick={() => dispatch(IncreaseQty(item))}
+                    >
                       <GrNext />
                     </Button>
                   </HStack>
                 </Td>
-                <Td textAlign={"center"}>100</Td>
+                <Td textAlign={"center"}>{item.price * item.quantity}</Td>
                 <Td textAlign={"center"}>
-                  <Button variant={"none"}>
+                  <Button
+                    variant={"none"}
+                    onClick={() => dispatch(deleteCart(item.id))}
+                  >
                     <AiFillDelete fontSize={18} color="red" />
                   </Button>
                 </Td>
@@ -70,8 +98,12 @@ const Cart: React.FC = () => {
         </Table>
       </TableContainer>
       <HStack justify={"space-between"}>
-        <Button colorScheme="blue">Continue Shopping</Button>
-        <Button colorScheme="red">Clear Cart</Button>
+        <NavLink to="/products">
+          <Button colorScheme="blue">Continue Shopping</Button>
+        </NavLink>
+        <Button colorScheme="red" onClick={() => dispatch(clearCart())}>
+          Clear Cart
+        </Button>
       </HStack>
       <VStack
         bg={"gray.200"}
@@ -84,16 +116,16 @@ const Cart: React.FC = () => {
       >
         <HStack w={"full"} justify={"space-between"}>
           <Text>SubTotal</Text>
-          <Text>2000$</Text>
+          <Text>{totalAmount}</Text>
         </HStack>
         <HStack w={"full"} justify={"space-between"}>
           <Text>Shipping Fee</Text>
-          <Text>2000$</Text>
+          <Text>5$</Text>
         </HStack>
         <Divider h={"1.2px"} bg={"black"}></Divider>
         <HStack w={"full"} justify={"space-between"}>
           <Text>Order Total</Text>
-          <Text>2000$</Text>
+          <Text>{totalAmount + 5}$</Text>
         </HStack>
       </VStack>
     </Box>

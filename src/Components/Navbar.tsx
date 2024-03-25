@@ -135,7 +135,10 @@ const Navbar = () => {
             <Button
               variant={"none"}
               leftIcon={<FaCartShopping />}
-              onClick={() => navigate("/cart")}
+              onClick={() => {
+                setActive(false);
+                navigate("/cart");
+              }}
             ></Button>
           )}
         </Flex>

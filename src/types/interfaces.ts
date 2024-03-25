@@ -43,4 +43,10 @@ export interface Product {
   category:string;
   image:string;
   rating:Rating;
+  stock:number
+}
+
+
+export interface cartProduct extends Product {
+  quantity: number;
 }
