@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": "787",
+      "fname": "ali",
+      "lname": "abbas",
+      "email": "ali@gmail.com",
+      "password": "1234abcd",
+      "country": "Pakistan",
+      "gender": "male",
+      "hobbies": [
+        "coding",
+        "hacking"
+      ],
+      "role": "admin"
+    },
+    {
+      "id": "123",
+      "fname": "ali",
+      "lname": "ahmed",
+      "email": "ahmed@gmail.com",
+      "password": "1234abcd",
+      "country": "india",
+      "gender": "male",
+      "hobbies": [
+        "coding",
+        "hacking"
+      ],
+      "role": "user"
+    },
+    {
+      "id": "486",
+      "fname": "alina",
+      "lname": "ali",
+      "email": "alina@gmail.com",
+      "password": "1234abcd",
+      "country": "Pakistan",
+      "gender": "female",
+      "hobbies": [
+        "coding",
+        "hacking"
+      ],
+      "role": "user"
+    },
+    {
+      "id": "23",
+      "fname": "naimat",
+      "lname": "ali",
+      "email": "naimat@gmail.com",
+      "password": "12345678",
+      "country": "Pakistan",
+      "gender": "male",
+      "hobbies": [
+        "coding",
+        "gym"
+      ],
+      "role": "user"
+    }
+  ]
+}
