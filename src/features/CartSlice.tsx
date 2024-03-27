@@ -11,6 +11,10 @@ const initialState: ICart = {
   totalAmount: 0,
 };
 
+const calculateTotalAmount = (cart: cartProduct[]): number => {
+  return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+};
+
 const cartSlice = createSlice({
   name: "CartSlice",
   initialState,
@@ -27,10 +31,7 @@ const cartSlice = createSlice({
         state.cart.push({ ...productToAdd, quantity: 1 });
       }
 
-      state.totalAmount = state.cart.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
+      state.totalAmount = calculateTotalAmount(state.cart);
     },
 
     IncreaseQty: (state, action) => {
@@ -42,10 +43,7 @@ const cartSlice = createSlice({
         product.quantity += 1;
       }
 
-      state.totalAmount = state.cart.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
+      state.totalAmount = calculateTotalAmount(state.cart);
     },
 
     DecreaseQty: (state, action) => {
@@ -57,20 +55,14 @@ const cartSlice = createSlice({
         product.quantity -= 1;
       }
 
-      state.totalAmount = state.cart.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
+      state.totalAmount = calculateTotalAmount(state.cart);
     },
 
     deleteCart: (state, action) => {
       const productIdToDelete = action.payload;
       state.cart = state.cart.filter((item) => item.id !== productIdToDelete);
 
-      state.totalAmount = state.cart.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
+      state.totalAmount = calculateTotalAmount(state.cart);
     },
     clearCart: (state) => {
       state.cart = [];
@@ -79,6 +71,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, IncreaseQty, DecreaseQty, deleteCart ,clearCart } =
+export const { addToCart, IncreaseQty, DecreaseQty, deleteCart, clearCart } =
   cartSlice.actions;
 export default cartSlice.reducer;

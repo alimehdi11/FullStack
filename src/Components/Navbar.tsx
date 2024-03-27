@@ -1,4 +1,4 @@
-import { Flex, Box, Button } from "@chakra-ui/react";
+import { Flex, Box, Button, Circle } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
 import { AiFillFire } from "react-icons/ai";
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import { logOutUser } from "../features/AuthSlice";
 const Navbar = () => {
+  const { cart } = useSelector((state: RootState) => state.CartSlice);
   const [active, setActive] = useState(false);
   const { isLogin, user } = useSelector((state: RootState) => state.AuthSlice);
   const dispatch = useDispatch();
@@ -50,7 +51,6 @@ const Navbar = () => {
   return (
     <Flex
       as="nav"
-      flexWrap={"wrap"}
       alignItems="baseline"
       justify="space-between"
       padding="1rem"
@@ -133,13 +133,25 @@ const Navbar = () => {
           </Button>
           {user?.role != "admin" && (
             <Button
-              variant={"none"}
-              leftIcon={<FaCartShopping />}
               onClick={() => {
                 setActive(false);
                 navigate("/cart");
               }}
-            ></Button>
+            >
+              Cart
+              <FaCartShopping fontSize={20} />
+              <Circle
+                size={5}
+                position={"absolute"}
+                top={"-8px"}
+                right={"-5px"}
+                color={"white"}
+                fontSize={14}
+                bg={"red"}
+              >
+                {cart.length}
+              </Circle>
+            </Button>
           )}
         </Flex>
       </Flex>

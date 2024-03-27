@@ -69,7 +69,7 @@ const Login: React.FC = () => {
       height={"90vh"}
       bg={"blue.200"}
     >
-      <VStack bg={"white"} w={"40vw"} p={10}>
+      <VStack bg={"white"} w={"90%"} maxW={"45rem"} p={10}>
         <Heading>Login Form</Heading>
         <form style={{ width: "100%" }} onSubmit={handleSubmit}>
           <VStack w={"full"} gap={5}>

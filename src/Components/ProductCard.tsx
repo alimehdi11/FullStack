@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { CiHeart } from "react-icons/ci";
 import { Product } from "../types/interfaces";
 import Stars from "./Stars";
+import AddCartBtn from "./Buttons/AddCartBtn";
 
 const ProductCard = (product: Product) => {
   const { image, price, rating, title, id } = product;
@@ -36,9 +37,7 @@ const ProductCard = (product: Product) => {
         <Text>Rating : {rating.rate}</Text>
         <Stars rating={rating?.rate}></Stars>
         <HStack justify={"center"} mt={3}>
-          <NavLink to={`/products/product/${id}`} onClick={handleScroll}>
-            <Button colorScheme="blue">Read More</Button>
-          </NavLink>
+          <AddCartBtn product={product!} />
           <Button colorScheme="green">Price: {price} $</Button>
         </HStack>
       </CardBody>

@@ -33,7 +33,7 @@ const initialValues: User = {
   country: "",
   gender: "",
   hobbies: [],
-  role:"user"
+  role: "user",
 };
 
 const validationSchema = Yup.object({
@@ -102,9 +102,9 @@ const Form = () => {
     >
       <Box
         bg={"white"}
-        maxW={"800px"}
+        maxW={"600px"}
         minH={"400px"}
-        width={"100%"}
+        width={"90%"}
         p={{ base: 5, md: "8" }}
       >
         <Box as="h1" fontSize={{ base: "xl", md: "2xl" }} mb={3}>

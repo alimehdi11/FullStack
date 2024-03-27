@@ -22,6 +22,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import { NavLink } from "react-router-dom";
+import Swal from "sweetalert2";
 import {
   DecreaseQty,
   IncreaseQty,
@@ -41,11 +42,32 @@ const Cart: React.FC = () => {
       </Flex>
     );
   }
+  const deleteCartFun = (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        dispatch(deleteCart(id));
+      }
+    });
+  };
+
   return (
     <Box w={"100%"} maxW={"1200px"} mx={"auto"} mt={5} px={5}>
       <Heading>Cart Items</Heading>
       <TableContainer my={5} py={6} borderBlock={"2px solid black"}>
-        <Table>
+        <Table size={"lg"}>
           <Thead>
             <Tr>
               {["S.No", "Item", "Price", "Quantity", "SubTotal", "Remove"].map(
@@ -62,7 +84,7 @@ const Cart: React.FC = () => {
               <Tr key={i}>
                 <Td textAlign={"center"}>{++i}</Td>
                 <Td display={"flex"} gap={5} alignItems={"center"}>
-                  <Image src={item.image} w={10} alt="" />
+                  <Image src={item.image} w={20} alt="" />
                   <Text>{item.title.split(" ").slice(0, 2).join(" ")}</Text>
                 </Td>
                 <Td textAlign={"center"}>{item.price}$</Td>
@@ -83,11 +105,11 @@ const Cart: React.FC = () => {
                     </Button>
                   </HStack>
                 </Td>
-                <Td textAlign={"center"}>{item.price * item.quantity}</Td>
+                <Td textAlign={"center"}>{item.price * item.quantity}$</Td>
                 <Td textAlign={"center"}>
                   <Button
                     variant={"none"}
-                    onClick={() => dispatch(deleteCart(item.id))}
+                    onClick={() => deleteCartFun(item.id)}
                   >
                     <AiFillDelete fontSize={18} color="red" />
                   </Button>
@@ -116,7 +138,7 @@ const Cart: React.FC = () => {
       >
         <HStack w={"full"} justify={"space-between"}>
           <Text>SubTotal</Text>
-          <Text>{totalAmount}</Text>
+          <Text>{totalAmount}$</Text>
         </HStack>
         <HStack w={"full"} justify={"space-between"}>
           <Text>Shipping Fee</Text>

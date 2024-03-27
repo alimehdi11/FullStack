@@ -50,3 +50,10 @@ export interface Product {
 export interface cartProduct extends Product {
   quantity: number;
 }
+
+
+export interface FilterProps {
+  searchText:string,
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+  filterProductsFun:()=>void
+}
