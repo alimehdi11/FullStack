@@ -119,7 +119,10 @@ const Navbar = () => {
               w={"fit-content"}
               colorScheme="blackAlpha"
               leftIcon={<IoIosContact />}
-              onClick={() => navigate("/contact")}
+              onClick={() =>{
+                 navigate("/contact");
+                setActive(false)
+            }}
             >
               Register
             </Button>
@@ -159,7 +162,10 @@ const Navbar = () => {
               bg={"blue.700"}
               cursor={"pointer"}
               color={"white"}
-              onClick={() => navigate("/bitspro/profile")}
+              onClick={() => {
+                navigate("/bitspro/profile");
+                setActive(false)
+              }}
             >
               {user &&
                 user?.fname.split("").slice(0, 1).join("").toUpperCase() +

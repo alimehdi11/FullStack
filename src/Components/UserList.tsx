@@ -21,7 +21,7 @@ const UserList = () => {
   if (isError) return <h1>Your internet Connection is Week</h1>;
   return (
     <Flex minH={"100vh"} justify={"center"} alignItems={"center"}>
-      <Box overflowX="auto" w={"900px"}>
+      <Box overflowX="auto" w={"900px"} px={10}>
         <Table variant="striped" colorScheme="teal" size={"md"}>
           <Thead>
             <Tr>
