@@ -15,6 +15,9 @@ const Protected: React.FC<ProtectedProps> = ({ comp }) => {
    if(user?.role != "admin"){
     navigate("/login")
    }
+   else if(!user){
+    navigate("/login")
+   }
   },[user?.role])
 
   if(user?.role != "admin") return null

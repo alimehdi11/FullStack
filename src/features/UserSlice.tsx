@@ -4,7 +4,7 @@ import { Product } from "./../types/interfaces";
 
 export const userApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://65f77aaab4f842e80885a255.mockapi.io",
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
@@ -40,7 +40,6 @@ export const userApi = createApi({
       invalidatesTags: ["User"],
     }),
     getProducts:builder.query<Product[] ,void>({
-      // query:()=>"https://fakestoreapi.com/products",
       query:()=>"https://65f77aaab4f842e80885a255.mockapi.io/products",
     })
   })

@@ -153,6 +153,19 @@ const Navbar = () => {
               </Circle>
             </Button>
           )}
+          {user && (
+            <Circle
+              size={10}
+              bg={"blue.700"}
+              cursor={"pointer"}
+              color={"white"}
+              onClick={() => navigate("/bitspro/profile")}
+            >
+              {user &&
+                user?.fname.split("").slice(0, 1).join("").toUpperCase() +
+                  user?.lname.split("").slice(0, 1).join("").toUpperCase()}
+            </Circle>
+          )}
         </Flex>
       </Flex>
     </Flex>

@@ -12,6 +12,7 @@ import ProductDetails from "./Components/ProductDetails";
 import Login from "./Components/Login";
 import Protected from "./Components/Protected";
 import Cart from "./Components/Cart";
+import UserProfile from "./Components/UserProfile";
 
 const App = () => {
   const { data: products, isSuccess } = useGetProductsQuery();
@@ -35,6 +36,8 @@ const App = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/products/product/:id" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/bitsPro/Profile" element={ <UserProfile/> }/>
+
       </Routes>
     </BrowserRouter>
   );

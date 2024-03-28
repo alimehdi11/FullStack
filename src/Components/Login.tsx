@@ -36,14 +36,14 @@ const Login: React.FC = () => {
   ) => {
     try {
       let response = await fetch(
-        `http://localhost:3000/users?email=${values.email}&password=${values.password}`
+        `https://65f77aaab4f842e80885a255.mockapi.io/users?email=${values.email}&password=${values.password}`
       );
       if (response.ok) {
         const responseData = await response.json();
         if (responseData.length === 1) {
           setError(null);
           dispatch(loginUser(responseData[0]));
-          navigate("/");
+          navigate("/bitspro/profile");
         } else {
           throw new Error("Invalid username or password.");
         }
