@@ -54,7 +54,7 @@ const Navbar = () => {
       alignItems="baseline"
       justify="space-between"
       padding="1rem"
-      bg="blue.500"
+      bg="green.500"
       color={{ base: "black", md: "white" }}
       gap={5}
     >
